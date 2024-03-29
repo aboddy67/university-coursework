@@ -6,14 +6,18 @@ package Lab7_InheritanceAndPolymorphism;
 public class Book {
     private String title;
     private double purchasesCost;
+    public static int bookCounter;
 
     public Book() {
         this.title = "";
         this.purchasesCost = 0.0;
+        bookCounter++;
     }
+
     public Book(String title, double purchasesCost) {
         this.title = title;
         this.purchasesCost = purchasesCost;
+        bookCounter++;
     }
 
     public String getTitle() {
