@@ -17,8 +17,9 @@ public class DailyBookReport {
         for (int i = 0; i < currentDayBooksNum; i++) {
             System.out.println("-------------------------------------------------------------------");
 
+            in.nextLine(); // Consume the newline character left by next() so we can read title
             System.out.print("Enter Book's Title: ");
-            String title = in.nextLine().trim();
+            String title = in.nextLine();
             System.out.print("Enter Book's Purchase Cost: ");
             double purchaseCost = in.nextDouble();
             System.out.print("Enter Book's Type (C for children, M for Motivational and B for Biographies): ");
@@ -44,9 +45,12 @@ public class DailyBookReport {
 
         System.out.println("-------------------------------------------------------------------");
         for (Book books : storedBooks) {
+            if (books == null)
+                break;
             System.out.println(books.toString());
             currentDayIncome += books.getPurchasesCost();
         }
+
         System.out.println("-------------------------------------------------------------------");
         System.out.println("Current Day Income = " + currentDayIncome + "SR.");
 
