@@ -4,7 +4,8 @@ Name: Abdulrahman Adnan Thigah
 package Lab7_InheritanceAndPolymorphism;
 
 public class MotivationalBook extends Book {
-    private double discountRate = 0.10;
+
+    private final double discountRate = 0.10;
 
     public MotivationalBook() {
         super();
@@ -22,6 +23,6 @@ public class MotivationalBook extends Book {
     @Override
     public String toString() {
         return "Motivational Book Title: " + getTitle() + ", Purchase' Cost: " + super.getPurchasesCost()
-                + ", Cost after discoutn = " + getPurchasesCost();
+                + ", Cost after discount = " + getPurchasesCost();
     }
 }

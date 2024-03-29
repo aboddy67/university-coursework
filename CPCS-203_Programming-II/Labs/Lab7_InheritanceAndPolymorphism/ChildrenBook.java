@@ -5,7 +5,7 @@ package Lab7_InheritanceAndPolymorphism;
 
 public class ChildrenBook extends Book {
 
-    private double discountRate = 0.15; // 15%
+    private final double discountRate = 0.15; // 15%
 
     public ChildrenBook() {
         super();
@@ -22,7 +22,7 @@ public class ChildrenBook extends Book {
 
     @Override
     public String toString() {
-        return "Title: " + getTitle() + ", Purchase' Cost: " + super.getPurchasesCost()
+        return "Children Book Title: " + getTitle() + ", Purchase' Cost: " + super.getPurchasesCost()
                 + ", Cost after discount = " + getPurchasesCost();
     }
 }
