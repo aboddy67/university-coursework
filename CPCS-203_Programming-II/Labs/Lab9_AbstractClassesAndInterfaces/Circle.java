@@ -29,10 +29,7 @@ public class Circle extends Point {
     public double area() {
         return Math.PI * radius * radius;
     }
-    @Override
-    public double volume() {
-        return 0.0;
-    }
+
     @Override
     // convert circle to a String representation
     public String toString() {
