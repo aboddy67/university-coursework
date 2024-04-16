@@ -8,16 +8,17 @@ import java.util.ArrayList;
 public class EmployeeManagementSystem {
     private ArrayList<Employee> employees;
 
+// -----------------------------------------------------------------------------------------------------
+    // ---------------------------- MAIN METHOD ----------------------------
     public static void main(String[] args) {
 
-        // MAIN
-
     }
-
+// -----------------------------------------------------------------------------------------------------
+    // Constructor to initialize the created variables
     public EmployeeManagementSystem() {
-
+        this.employees = new ArrayList<>();
     }
-
+// -----------------------------------------------------------------------------------------------------
     public String addEmployee(Employee addedEmployee) {
         employees.add(addedEmployee);
         String title = "";
@@ -33,28 +34,20 @@ public class EmployeeManagementSystem {
 
         return title + addedEmployee.getName() + "added.";
     }
-
+// -----------------------------------------------------------------------------------------------------
     public String removeEmployee(int id) {
-        boolean flag = false;
+        Employee chosenEmployee = findEmployeeById(id);
 
-        for (Employee chosenEmployee : employees) {
-            if (chosenEmployee.getId() == id) {
-                employees.remove(chosenEmployee);
-                flag = true;
-                break;
-            }
+        if (chosenEmployee == null) {
+            return "Remove failed. ID is incorrect or ID does not exist";
         }
-
-        if (flag == false) {
-            System.out.println("Remove failed. ID is incorrect or employee ID does not exist.");
-        }
-
+        employees.remove(chosenEmployee);
         return "Employee removed successfully ";
     }
-
+// -----------------------------------------------------------------------------------------------------
     public String printAllEmployees() {
         StringBuilder employeePlan = new StringBuilder();
-        employeePlan.append("Name "+ "\t" + "ID" + "\t" + "Salary" +  "\t" + "Bonus");
+        employeePlan.append("Name " + "\t" + "ID" + "\t" + "Salary" + "\t" + "Bonus");
         employeePlan.append("\n");
 
         for (Employee employee : employees) {
@@ -65,22 +58,32 @@ public class EmployeeManagementSystem {
 
         return employeePlan.toString();
     }
-
+// -----------------------------------------------------------------------------------------------------
     public String approveLeave(int mangerId, int employeeId, LocalDate startDate, int days) {
 
 
         return "";
     }
+// -----------------------------------------------------------------------------------------------------
     public String markEmployeeAsWorking(int id) {
 
-        return"";
+        return "";
     }
-    public String printEmployeeLeaveRecords (int id) {
+// -----------------------------------------------------------------------------------------------------
+    public String printEmployeeLeaveRecords(int id) {
 
-        return"";
+        return "";
     }
-    private Employee findEmployeeById (int id) {
+// -----------------------------------------------------------------------------------------------------
+    private Employee findEmployeeById(int id) {
+        Employee correctEmployee = null;
 
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                return employee;
+            }
+        }
         return null;
     }
+// -----------------------------------------------------------------------------------------------------
 }
