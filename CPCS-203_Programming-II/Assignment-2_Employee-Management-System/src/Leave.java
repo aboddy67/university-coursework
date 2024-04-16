@@ -17,6 +17,6 @@ public class Leave {
     }
 
     public void displayLeaveDetails() {
-        System.out.println("Employee: " + employee + "Start Date: " + startDate + "Days of leave:  " + daysOfLeave);
+        System.out.println(startDate + "\t" + daysOfLeave);
     }
 }

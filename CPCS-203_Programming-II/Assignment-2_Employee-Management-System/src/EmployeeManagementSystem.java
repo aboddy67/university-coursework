@@ -2,23 +2,40 @@
 Abdulrahman Thigah
 */
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EmployeeManagementSystem {
-    private ArrayList<Employee> employees;
+    private final ArrayList<Employee> employees;
 
-// -----------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------
     // ---------------------------- MAIN METHOD ----------------------------
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        File employmentManagementFile = new File("input.txt");
+        File outputFile = new File("output.txt");
+        if(!outputFile.exists() && !employmentManagementFile.exists()) {
+            System.out.println("One or more files are not found!");
+            System.exit(0);
+        }
+        PrintWriter pw = new PrintWriter(outputFile);
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    public void handleInputCommands(File f) throws FileNotFoundException {
+        Scanner in = new Scanner(f);
 
     }
-// -----------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------
     // Constructor to initialize the created variables
     public EmployeeManagementSystem() {
         this.employees = new ArrayList<>();
     }
-// -----------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------
     public String addEmployee(Employee addedEmployee) {
         employees.add(addedEmployee);
         String title = "";
@@ -34,7 +51,8 @@ public class EmployeeManagementSystem {
 
         return title + addedEmployee.getName() + "added.";
     }
-// -----------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------
     public String removeEmployee(int id) {
         Employee chosenEmployee = findEmployeeById(id);
 
@@ -44,7 +62,8 @@ public class EmployeeManagementSystem {
         employees.remove(chosenEmployee);
         return "Employee removed successfully ";
     }
-// -----------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------
     public String printAllEmployees() {
         StringBuilder employeePlan = new StringBuilder();
         employeePlan.append("Name " + "\t" + "ID" + "\t" + "Salary" + "\t" + "Bonus");
@@ -58,23 +77,74 @@ public class EmployeeManagementSystem {
 
         return employeePlan.toString();
     }
-// -----------------------------------------------------------------------------------------------------
-    public String approveLeave(int mangerId, int employeeId, LocalDate startDate, int days) {
 
+    // -----------------------------------------------------------------------------------------------------
+    public String approveLeave(int managerId, int employeeId, LocalDate startDate, int days) {
 
-        return "";
+        Employee manager = findEmployeeById(managerId);
+        Employee employee = findEmployeeById(employeeId);
+
+        if (manager instanceof Manager) {
+
+            if (employee != null) {
+
+                if (!employee.getState().equalsIgnoreCase("On Leave")) {
+
+                    ((Manager) manager).approveLeave(employee, startDate, days);
+
+                } else {
+                    return "Cannot approve leave for " + employee.getName() + " as they are already on leave.";
+                }
+            }
+        } else {
+            return "Leave approval failed. Either manager ID is incorrect or employee ID does not exist.";
+        }
+
+        return "Leave approved for " + employee.getName();
     }
-// -----------------------------------------------------------------------------------------------------
-    public String markEmployeeAsWorking(int id) {
 
-        return "";
-    }
-// -----------------------------------------------------------------------------------------------------
-    public String printEmployeeLeaveRecords(int id) {
 
-        return "";
+    // -----------------------------------------------------------------------------------------------------
+    public String markEmployeeAsWorking(int managerId, int employeeId) {
+
+        Employee chosenManager = findEmployeeById(managerId);
+        Employee chosenEmployee = findEmployeeById(employeeId);
+
+        if (chosenManager instanceof Manager) {
+
+            if (chosenEmployee != null) {
+
+                if (!chosenEmployee.getState().equalsIgnoreCase("Working")) {
+                    Manager manager = (Manager) chosenManager;
+                    manager.markEmployeeAsWorking(chosenEmployee);
+                } else {
+                    return "Marking Employee as Working Failed. Employee is already Working.";
+                }
+            }
+        } else {
+            return "Mark Employee as Working failed. Either manager ID is incorrect or employee ID does not exist.";
+        }
+
+        return "Employee " + chosenEmployee.getName() + " is now marked as working.";
     }
-// -----------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------
+    public String printEmployeeLeaveRecords(int employeeId) {
+        Employee employee = findEmployeeById(employeeId);
+        StringBuilder printLeaveRecords = new StringBuilder();
+
+        printLeaveRecords.append("Leave Records for " + employee.getName());
+        printLeaveRecords.append("\n");
+        printLeaveRecords.append("Start Date" + "\t" + "Days of leave");
+
+        for (Leave leave : employee.getLeaveRecords()) {
+            leave.displayLeaveDetails();
+        }
+
+        return printLeaveRecords.toString();
+    }
+
+    // -----------------------------------------------------------------------------------------------------
     private Employee findEmployeeById(int id) {
         Employee correctEmployee = null;
 
@@ -86,4 +156,5 @@ public class EmployeeManagementSystem {
         return null;
     }
 // -----------------------------------------------------------------------------------------------------
+
 }
