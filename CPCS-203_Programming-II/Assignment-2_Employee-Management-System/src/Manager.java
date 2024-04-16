@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class Manager extends Employee implements Approver {
 
-    public Manager (String name, int id, double salary) {
+    public Manager(String name, int id, double salary) {
         super(name, id, salary);
     }
 
