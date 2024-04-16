@@ -68,7 +68,6 @@ public class EmployeeManagementSystem {
 
     public String approveLeave(int mangerId, int employeeId, LocalDate startDate, int days) {
 
-        if ()
 
         return "";
     }
