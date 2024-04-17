@@ -2,33 +2,12 @@
 Abdulrahman Thigah
 */
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class EmployeeManagementSystem {
     private final ArrayList<Employee> employees;
 
-    // -----------------------------------------------------------------------------------------------------
-    // ---------------------------- MAIN METHOD ----------------------------
-    public static void main(String[] args) throws FileNotFoundException {
-        File employmentManagementFile = new File("input.txt");
-        File outputFile = new File("output.txt");
-        if(!outputFile.exists() && !employmentManagementFile.exists()) {
-            System.out.println("One or more files are not found!");
-            System.exit(0);
-        }
-        PrintWriter pw = new PrintWriter(outputFile);
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    public void handleInputCommands(File f) throws FileNotFoundException {
-        Scanner in = new Scanner(f);
-
-    }
     // -----------------------------------------------------------------------------------------------------
     // Constructor to initialize the created variables
     public EmployeeManagementSystem() {
@@ -42,14 +21,15 @@ public class EmployeeManagementSystem {
 
         // check what type of employee
         if (addedEmployee instanceof Manager) {
-            title = "Manger";
+            title = "Manager";
         } else if (addedEmployee instanceof Developer) {
             title = "Developer";
         } else if (addedEmployee instanceof Designer) {
             title = "Designer";
         }
 
-        return title + addedEmployee.getName() + "added.";
+        return title + " " + addedEmployee.getName() + " added.";
+
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -57,23 +37,24 @@ public class EmployeeManagementSystem {
         Employee chosenEmployee = findEmployeeById(id);
 
         if (chosenEmployee == null) {
-            return "Remove failed. ID is incorrect or ID does not exist";
+            return "Employee with ID " + id + " not found.";
         }
         employees.remove(chosenEmployee);
-        return "Employee removed successfully ";
+        return "Employee removed successfully.";
     }
 
     // -----------------------------------------------------------------------------------------------------
     public String printAllEmployees() {
         StringBuilder employeePlan = new StringBuilder();
-        employeePlan.append("Name " + "\t" + "ID" + "\t" + "Salary" + "\t" + "Bonus");
-        employeePlan.append("\n");
+        String format = "%-15s %-6s%-12s%-12s%n";
+        String formatWithSalary = "%-15s %-6s%8.2f%11.2f%n";
+
+        employeePlan.append(String.format(format, "Name ", "ID", "Salary", "Bonus"));
 
         for (Employee employee : employees) {
-            employeePlan.append(employee.getName() + "\t" + employee.getId() + "\t" + employee.getSalary() + "\t" + employee.calculateBonus());
-            employeePlan.append("\n");
+            employeePlan.append(String.format(formatWithSalary,
+                    employee.getName(), employee.getId(), employee.getSalary(), employee.calculateBonus()));
         }
-
 
         return employeePlan.toString();
     }
@@ -81,28 +62,22 @@ public class EmployeeManagementSystem {
     // -----------------------------------------------------------------------------------------------------
     public String approveLeave(int managerId, int employeeId, LocalDate startDate, int days) {
 
-        Employee manager = findEmployeeById(managerId);
-        Employee employee = findEmployeeById(employeeId);
+        Employee chosenManager = findEmployeeById(managerId);
+        Employee chosenEmployee = findEmployeeById(employeeId);
 
-        if (manager instanceof Manager) {
-
-            if (employee != null) {
-
-                if (!employee.getState().equalsIgnoreCase("On Leave")) {
-
-                    ((Manager) manager).approveLeave(employee, startDate, days);
-
-                } else {
-                    return "Cannot approve leave for " + employee.getName() + " as they are already on leave.";
-                }
-            }
-        } else {
+        if (!(chosenManager instanceof Manager) || chosenEmployee == null) {
             return "Leave approval failed. Either manager ID is incorrect or employee ID does not exist.";
         }
 
-        return "Leave approved for " + employee.getName();
-    }
+        if ((chosenEmployee.getState() != null) && (!chosenEmployee.getState().equalsIgnoreCase("On Leave"))) {
+            ((Manager) chosenManager).approveLeave(chosenEmployee, startDate, days);
+        } else {
+            return "Cannot approve leave for " + chosenEmployee.getName() + " as they are already on leave.";
+        }
 
+
+        return "Leave approved for " + chosenEmployee.getName() + ".";
+    }
 
     // -----------------------------------------------------------------------------------------------------
     public String markEmployeeAsWorking(int managerId, int employeeId) {
@@ -110,19 +85,15 @@ public class EmployeeManagementSystem {
         Employee chosenManager = findEmployeeById(managerId);
         Employee chosenEmployee = findEmployeeById(employeeId);
 
-        if (chosenManager instanceof Manager) {
-
-            if (chosenEmployee != null) {
-
-                if (!chosenEmployee.getState().equalsIgnoreCase("Working")) {
-                    Manager manager = (Manager) chosenManager;
-                    manager.markEmployeeAsWorking(chosenEmployee);
-                } else {
-                    return "Marking Employee as Working Failed. Employee is already Working.";
-                }
-            }
-        } else {
+        if (!(chosenManager instanceof Manager) || chosenEmployee == null) {
             return "Mark Employee as Working failed. Either manager ID is incorrect or employee ID does not exist.";
+        }
+
+        if ((chosenEmployee.getState() != null) && !(chosenEmployee.getState().equalsIgnoreCase("Working"))) {
+            Manager manager = (Manager) chosenManager;
+            manager.markEmployeeAsWorking(chosenEmployee);
+        } else {
+            return "Marking Employee as Working Failed. Employee is already Working.";
         }
 
         return "Employee " + chosenEmployee.getName() + " is now marked as working.";
@@ -133,12 +104,13 @@ public class EmployeeManagementSystem {
         Employee employee = findEmployeeById(employeeId);
         StringBuilder printLeaveRecords = new StringBuilder();
 
-        printLeaveRecords.append("Leave Records for " + employee.getName());
-        printLeaveRecords.append("\n");
-        printLeaveRecords.append("Start Date" + "\t" + "Days of leave");
+        printLeaveRecords.append("Leave records for " + employee.getName() + ":\n");
+
+        String format = "%-13s%-13s%n";
+        printLeaveRecords.append(String.format(format, "Start Date", "Days of leave"));
 
         for (Leave leave : employee.getLeaveRecords()) {
-            leave.displayLeaveDetails();
+            printLeaveRecords.append(String.format(format, leave.getStartDate(), leave.getDaysOfLeave()));
         }
 
         return printLeaveRecords.toString();

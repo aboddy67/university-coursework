@@ -18,12 +18,13 @@ public class Manager extends Employee implements Approver {
     @Override
     public void approveLeave(Employee employee, LocalDate date, int id) {
         Leave leave = new Leave(employee, date, id);
-        addLeaveRecord(leave);
-        System.out.println("Leave approved for " + employee.getName());
+        employee.addLeaveRecord(leave);
+        employee.setStateOnLeave();
     }
 
     @Override
     public void markEmployeeAsWorking(Employee employee) {
         employee.setStateWorking();
     }
+
 }

@@ -14,6 +14,8 @@ public abstract class Employee {
         this.name = name;
         this.id = id;
         this.salary = salary;
+        this.state = "Working";
+        LeaveRecords = new ArrayList<>();
     }
 
     // so that each employee implements the bonus accordingly

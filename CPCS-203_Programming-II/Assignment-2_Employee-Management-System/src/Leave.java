@@ -16,7 +16,15 @@ public class Leave {
 
     }
 
-    public void displayLeaveDetails() {
-        System.out.println(startDate + "\t" + daysOfLeave);
+    public String displayLeaveDetails() {
+        return startDate + "\t" + daysOfLeave;
+    }
+
+    public int getDaysOfLeave() {
+        return daysOfLeave;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
     }
 }
