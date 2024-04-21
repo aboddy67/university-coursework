@@ -1,16 +1,25 @@
-/* 
-Abdulrahman Thigah
+/*
+Name: Abdulrahman Adnan Thigah
+Section: CS7
+Program No: 2
 */
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Scanner;
 
+// --------------------------------------------------------------------------------------------------------------
+// Main class handles all system features and uses them
 public class MainSystem {
-    // ---------------------------- MAIN METHOD ----------------------------
+    /*
+     ************************************* MAIN METHOD ************************************
+     * OVERVIEW:
+     * THIS METHOD CREATES AND INITIALIZES ALL FILES AND CHECKS FOR THEIR EXISTENCE
+     * IT ALSO CREATES THE PRINTWRITER AND SCANNER IN ORDER TO READ AND WRITE FROM AND ONTO THOSE FILES
+     * THEN CREATES AND HANDLES AN OBJECT FOR THE SYSTEM IN ORDER TO PERFORM ACTIONS ON EMPLOYEES FROM THE INPUT FILE
+     */
     public static void main(String[] args) throws FileNotFoundException {
 
         File employmentManagementFile = new File("input.txt");
@@ -31,14 +40,18 @@ public class MainSystem {
         // Create an object of the system
         EmployeeManagementSystem ems = new EmployeeManagementSystem();
 
+        // Check for all lines in the file and parses them
         while (fileScanner.hasNextLine()) {
             String commandLine = fileScanner.nextLine();
             handleCommand(commandLine, ems, pw);
         }
+        // Close the print writer and the scanner to free resources and print
         pw.close();
+        fileScanner.close();
     }
 // --------------------------------------------------------------------------------------------------------------
 
+    // This method parses lines from an input file, identifying commands and executing them accordingly.
     public static void handleCommand(String commandLine, EmployeeManagementSystem ems, PrintWriter pw) {
         String[] parts = commandLine.split(",");
 
@@ -63,6 +76,7 @@ public class MainSystem {
                 break;
 
             case "Change_State":
+                // check whether the command needs to change to working or to on leave
                 if (parts[3].trim().equalsIgnoreCase("Working")) {
                     pw.println(ems.markEmployeeAsWorking(Integer.parseInt(parts[1].trim()), Integer.parseInt(parts[2].trim())));
                 } else if (parts[3].trim().equalsIgnoreCase("On Leave")) {
@@ -85,4 +99,4 @@ public class MainSystem {
         }
     }
 // --------------------------------------------------------------------------------------------------------------
-}
+} // End Main Class

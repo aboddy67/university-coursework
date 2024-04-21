@@ -1,14 +1,18 @@
-/* 
-Abdulrahman Thigah
+/*
+Name: Abdulrahman Adnan Thigah
+Section: CS7
+Program No: 2
 */
+
 import java.util.ArrayList;
 
+// Employee class is an abstract class having all the common attributes and methods for all employees
 public abstract class Employee {
     private String name;
     private int id;
     private double salary;
     private String state;
-    private ArrayList <Leave> LeaveRecords;
+    private final ArrayList<Leave> LeaveRecords; // to store the leave records of the employee
 
     public Employee(String name, int id, double salary) {
         this.name = name;
@@ -18,7 +22,7 @@ public abstract class Employee {
         LeaveRecords = new ArrayList<>();
     }
 
-    // so that each employee implements the bonus accordingly
+    // Making it abstract so that each employee implements the bonus accordingly
     public abstract double calculateBonus();
 
     @Override
@@ -38,11 +42,11 @@ public abstract class Employee {
         LeaveRecords.add(leave);
     }
 
+    // Getters and Setters
     public ArrayList<Leave> getLeaveRecords() {
         return LeaveRecords;
     }
 
-    // getters and setters for attributes
     public String getName() {
         return name;
     }
@@ -53,10 +57,6 @@ public abstract class Employee {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public double getSalary() {
@@ -71,7 +71,4 @@ public abstract class Employee {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
 }

@@ -1,20 +1,24 @@
-/* 
-Abdulrahman Thigah
+/*
+Name: Abdulrahman Adnan Thigah
+Section: CS7
+Program No: 2
 */
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EmployeeManagementSystem {
+    // used to store the employees,
     private final ArrayList<Employee> employees;
 
     // -----------------------------------------------------------------------------------------------------
-    // Constructor to initialize the created variables
+    // Constructor to initialize the created variables to avoid NullPointerException
     public EmployeeManagementSystem() {
         this.employees = new ArrayList<>();
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // Method to add an employee to the list with checking the type of employee using instanceof
     public String addEmployee(Employee addedEmployee) {
         employees.add(addedEmployee);
         String title = "";
@@ -29,10 +33,10 @@ public class EmployeeManagementSystem {
         }
 
         return title + " " + addedEmployee.getName() + " added.";
-
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // Method to remove an employee from the list while checking for the existence
     public String removeEmployee(int id) {
         Employee chosenEmployee = findEmployeeById(id);
 
@@ -44,12 +48,14 @@ public class EmployeeManagementSystem {
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // Method to print a list of all employees with their salaries and bonuses
     public String printAllEmployees() {
         StringBuilder employeePlan = new StringBuilder();
         String format = "%-15s %-6s%-12s%-12s%n";
         String formatWithSalary = "%-15s %-6s%8.2f%11.2f%n";
 
-        employeePlan.append(String.format(format, "Name ", "ID", "Salary", "Bonus"));
+        employeePlan.append(String.format(format,
+                "Name ", "ID", "Salary", "Bonus"));
 
         for (Employee employee : employees) {
             employeePlan.append(String.format(formatWithSalary,
@@ -60,12 +66,13 @@ public class EmployeeManagementSystem {
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // method to approve leave for an employee with checking the manager authority and the employee existence
     public String approveLeave(int managerId, int employeeId, LocalDate startDate, int days) {
 
         Employee chosenManager = findEmployeeById(managerId);
         Employee chosenEmployee = findEmployeeById(employeeId);
 
-        if (!(chosenManager instanceof Manager) || chosenEmployee == null) {
+        if (!(chosenManager instanceof Approver) || chosenEmployee == null) {
             return "Leave approval failed. Either manager ID is incorrect or employee ID does not exist.";
         }
 
@@ -80,12 +87,13 @@ public class EmployeeManagementSystem {
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // Method to mark an employee as working with checking the manager authority and the employee existence
     public String markEmployeeAsWorking(int managerId, int employeeId) {
 
         Employee chosenManager = findEmployeeById(managerId);
         Employee chosenEmployee = findEmployeeById(employeeId);
 
-        if (!(chosenManager instanceof Manager) || chosenEmployee == null) {
+        if (!(chosenManager instanceof Approver) || chosenEmployee == null) {
             return "Mark Employee as Working failed. Either manager ID is incorrect or employee ID does not exist.";
         }
 
@@ -100,10 +108,15 @@ public class EmployeeManagementSystem {
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // Method to print all the leave records for a specific employee
     public String printEmployeeLeaveRecords(int employeeId) {
         Employee employee = findEmployeeById(employeeId);
         StringBuilder printLeaveRecords = new StringBuilder();
 
+        // check for any null employees to avoid NullPointerException
+        if (employee == null) {
+            return "Employee with ID " + employeeId + " not found.";
+        }
         printLeaveRecords.append("Leave records for " + employee.getName() + ":\n");
 
         String format = "%-13s%-13s%n";
@@ -117,8 +130,8 @@ public class EmployeeManagementSystem {
     }
 
     // -----------------------------------------------------------------------------------------------------
+    // Internal Method to find an employee by their ID, and only for private use
     private Employee findEmployeeById(int id) {
-        Employee correctEmployee = null;
 
         for (Employee employee : employees) {
             if (employee.getId() == id) {
@@ -129,4 +142,4 @@ public class EmployeeManagementSystem {
     }
 // -----------------------------------------------------------------------------------------------------
 
-}
+} // End Class
