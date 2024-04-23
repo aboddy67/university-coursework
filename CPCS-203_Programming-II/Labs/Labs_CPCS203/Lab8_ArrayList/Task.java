@@ -1,4 +1,4 @@
-package Lab8_ArrayList;
+package Labs_CPCS203.Lab8_ArrayList;
 
 public class Task {
     private String title;

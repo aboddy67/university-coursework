@@ -1,17 +1,17 @@
 /*
 Name: Abdulrahman Adnan Thigah
 */
-package Lab7_InheritanceAndPolymorphism;
+package Labs_CPCS203.Lab7_InheritanceAndPolymorphism;
 
-public class ChildrenBook extends Book {
+public class MotivationalBook extends Book {
 
-    private final double discountRate = 0.15; // 15%
+    private final double discountRate = 0.10;
 
-    public ChildrenBook() {
+    public MotivationalBook() {
         super();
     }
 
-    public ChildrenBook(String name, double cost) {
+    public MotivationalBook(String name, double cost) {
         super(name, cost);
     }
 
@@ -22,7 +22,7 @@ public class ChildrenBook extends Book {
 
     @Override
     public String toString() {
-        return "Children Book Title: " + getTitle() + ", Purchase' Cost: " + super.getPurchasesCost()
+        return "Motivational Book Title: " + getTitle() + ", Purchase' Cost: " + super.getPurchasesCost()
                 + ", Cost after discount = " + getPurchasesCost();
     }
 }
