@@ -1,7 +1,7 @@
 /* 
 Abdulrahman Thigah
 */
-package Lab5;
+package Lab5_ThinkingInObjects;
 
 public class Product {
     private String productName;

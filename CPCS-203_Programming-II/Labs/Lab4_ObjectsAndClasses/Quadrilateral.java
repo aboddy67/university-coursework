@@ -1,7 +1,7 @@
 /* 
 Abdulrahman Thigah
 */
-package Lab4;
+package Lab4_ObjectsAndClasses;
 
 import java.util.Scanner;
 
