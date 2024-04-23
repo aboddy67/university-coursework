@@ -1,7 +1,7 @@
 /*
 Name: Abdulrahman Adnan Thigah
 */
-package Labs_CPCS203.Lab9_AbstractClassesAndInterfaces;
+package Lab9_AbstractClassesAndInterfaces;
 
 public class Cylinder extends Circle {
     protected double height;

@@ -1,7 +1,7 @@
 /* 
 Abdulrahman Thigah
 */
-package Labs_CPCS203.Lab2_ProductGenerator;
+package Lab2_ProductGenerator;
 
 import java.util.Scanner;
 

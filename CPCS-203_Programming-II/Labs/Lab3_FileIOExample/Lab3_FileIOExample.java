@@ -1,7 +1,7 @@
 /* 
 Abdulrahman Thigah
 */
-package Labs_CPCS203.Lab3_FileIOExample;
+package Lab3_FileIOExample;
 
 import java.util.Scanner;
 import java.io.File;

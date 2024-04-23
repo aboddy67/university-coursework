@@ -1,4 +1,4 @@
-package Labs_CPCS203.Lab9_AbstractClassesAndInterfaces;
+package Lab9_AbstractClassesAndInterfaces;
 
 public interface Shape {
     public double area();

@@ -1,7 +1,7 @@
 /* 
 Abdulrahman Thigah
 */
-package Labs_CPCS203.Lab1_TicTacToe;
+package Lab1_TicTacToe;
 
 import java.util.Scanner;
 

@@ -1,7 +1,7 @@
 /* 
 Abdulrahman Thigah
 */
-package Labs_CPCS203.Lab8_ArrayList;
+package Lab8_ArrayList;
 
 import java.util.ArrayList;
 import java.util.Scanner;

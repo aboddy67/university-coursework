@@ -1,7 +1,7 @@
 /*
 Name: Abdulrahman Adnan Thigah
 */
-package Labs_CPCS203.Lab7_InheritanceAndPolymorphism;
+package Lab7_InheritanceAndPolymorphism;
 
 public class BiographiesBook extends Book {
 
