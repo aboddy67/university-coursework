@@ -11,7 +11,8 @@ public class Ticket {
     private Train train;
 
     public Ticket(Passenger passenger, Train train) {
-
+        this.passenger = passenger;
+        this.train = train;
     }
 
     public Passenger getPassenger() {
@@ -24,6 +25,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-
+        return "Ticket [Passenger: " + passenger.toString() + ", Train ID: " + train.getTrainID() + "]";
     }
 }

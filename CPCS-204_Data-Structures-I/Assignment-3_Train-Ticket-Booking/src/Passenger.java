@@ -11,7 +11,8 @@ public class Passenger {
     private String name;
 
     public Passenger(String passengerID, String name) {
-
+        this.passengerID = passengerID;
+        this.name = name;
     }
 
     public String getPassengerID() {
@@ -24,6 +25,6 @@ public class Passenger {
 
     @Override
     public String toString() {
-
+        return "Passenger: " + name + " (ID: " + passengerID + ")";
     }
 }
