@@ -13,15 +13,19 @@ public class Queue<T> {
     public Queue() {
 
     }
+
     public void enqueue(T data) {
 
     }
+
     public T dequeue() {
 
     }
+
     public boolean isEmpty() {
 
     }
+
     public Node<T> peak() {
 
     }

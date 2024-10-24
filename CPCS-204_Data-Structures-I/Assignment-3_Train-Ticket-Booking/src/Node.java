@@ -7,10 +7,10 @@ Assignment number: #3
 */
 
 public class Node<T> {
-     T hi;
-     Node<T> next;
+    T hi;
+    Node<T> next;
 
-     public Node(T data) {
+    public Node(T data) {
 
-     }
+    }
 }

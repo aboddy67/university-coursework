@@ -12,15 +12,19 @@ public class Stack<T> {
     public Stack() {
 
     }
+
     public void push(T data) {
 
     }
+
     public T pop() {
 
     }
+
     public boolean isEmpty() {
 
     }
+
     public Node<T> top() {
 
     }

@@ -14,12 +14,15 @@ public class Train {
     public Train(String trainID, int capacity) {
 
     }
+
     public String getTrainID() {
         return trainID;
     }
+
     public String bookSeats(Passenger passenger) {
 
     }
+
     public String cancelSeat(Passenger passenger) {
 
     }
