@@ -7,10 +7,11 @@ Assignment number: #3
 */
 
 public class Node<T> {
-    T hi;
+    T data;
     Node<T> next;
 
     public Node(T data) {
-
+        this.data = data;
+        this.next = null;
     }
 }
