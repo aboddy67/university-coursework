@@ -31,14 +31,13 @@ public class Train {
             return "Booking confirmed for Passenger " + passenger.toString() + ".";
         } else {
             return null; // meaning no seat is available
-            //return "No seats for " + passenger.toString() + ", added to waiting list.";
         }
     }
 
     public String cancelSeat(Passenger passenger) {
         if (availableSeats < capacity) {
             availableSeats++;
-            return "Booking cancelled for " + passenger.toString();
+            return "Booking cancelled for " + passenger.toString() + ".";
         } else {
             return null; // as the train has no booked seats
         }

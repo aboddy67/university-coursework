@@ -40,17 +40,49 @@ public class TrainTicketBookingSystem {
     }
 
     public void bookSeat(String passengerID) {
-        Passenger passenger = findPassengerByID(passengerID);
+        Passenger bookingPassenger = findPassengerByID(passengerID);
 
-        if (passenger != null) {
-            Ticket newTicket = new Ticket(passenger, train);
+        if (bookingPassenger != null) {
+            Ticket newTicket = new Ticket(bookingPassenger, train);
+            String bookResult = train.bookSeats(bookingPassenger);
+
+            if (bookResult != null) {
+                confirmStack.push(newTicket);
+                outputWriter.println(bookResult);
+
+            } else {
+                waitingQueue.enqueue(newTicket);
+                outputWriter.println("No seats for " + bookingPassenger.toString() + ", added to waiting list.");
+
+            }
         } else {
-
+            outputWriter.println("Passenger with ID: " + passengerID + " not found.");
         }
     }
 
     public void cancelBooking(String passengerID) {
+        Passenger cancellingPassenger = findPassengerByID(passengerID);
 
+        if (cancellingPassenger != null) {
+            String cancelResult = train.cancelSeat(cancellingPassenger);
+
+            if (cancelResult != null) {
+                removePassengerFromConfirmed(cancellingPassenger);
+                outputWriter.println(cancelResult);
+
+                if (!waitingQueue.isEmpty()) {
+                    Ticket waitingQueueTicket = waitingQueue.dequeue();
+                    String bookResult = train.bookSeats(waitingQueueTicket.getPassenger());
+
+                    if (bookResult != null) {
+                        confirmStack.push(waitingQueueTicket);
+                        outputWriter.println(bookResult);
+                    }
+                }
+            } else
+                outputWriter.println("No booking found for " + cancellingPassenger.toString() + ".");
+        } else
+            outputWriter.println("Passenger with ID: " + passengerID + " not found.");
     }
 
     public void showConfirmedTickets() {
@@ -73,6 +105,23 @@ public class TrainTicketBookingSystem {
     }
 
     public Ticket removePassengerFromConfirmed(Passenger passenger) {
+        Stack<Ticket> tempStack = new Stack<>();
+        Ticket removedTicket = null;
 
+        while (!confirmStack.isEmpty()) {
+            Ticket currentTicket = confirmStack.pop();
+
+            if (currentTicket.getPassenger().equals(passenger)) {
+                removedTicket = currentTicket;
+            } else {
+                tempStack.push(currentTicket);
+            }
+        }
+
+        while (!tempStack.isEmpty()) {
+            confirmStack.push(tempStack.pop());
+        }
+
+        return removedTicket;
     }
 }
