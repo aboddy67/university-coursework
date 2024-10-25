@@ -17,7 +17,7 @@ public class Queue<T> {
 
     public void enqueue(T data) {
         Node<T> newNode = new Node<>(data);
-        if(isEmpty()) {
+        if (isEmpty()) {
             front = newNode;
             rear = newNode;
         } else {
@@ -27,7 +27,7 @@ public class Queue<T> {
     }
 
     public T dequeue() {
-        if(isEmpty())
+        if (isEmpty())
             return null;
 
         T outData = front.data;

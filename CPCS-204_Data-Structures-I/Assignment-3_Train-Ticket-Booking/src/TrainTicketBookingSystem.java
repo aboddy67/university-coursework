@@ -6,7 +6,6 @@ Name of lab instructor: Ayman Yafoz
 Assignment number: #3
 */
 
-import java.io.File;
 import java.io.PrintWriter;
 
 public class TrainTicketBookingSystem {
@@ -22,7 +21,7 @@ public class TrainTicketBookingSystem {
         confirmStack = new Stack<>();
         waitingQueue = new Queue<>();
         try {
-            outputWriter = new PrintWriter(new File("output.txt"));
+            outputWriter = new PrintWriter("output.txt");
         } catch (Exception e) {
             System.out.println("Error initializing Print Writer for output file...\n Error: " + e.getMessage());
         }
@@ -36,7 +35,7 @@ public class TrainTicketBookingSystem {
     public void addPassenger(String passengerID, String name) {
         Passenger newPassenger = new Passenger(passengerID, name);
         passengerQueue.enqueue(newPassenger);
-        outputWriter.println("Passenger " + newPassenger.toString() + " has been added to the system.");
+        outputWriter.println("Passenger " + newPassenger + " has been added to the system.");
     }
 
     public void bookSeat(String passengerID) {
@@ -52,7 +51,7 @@ public class TrainTicketBookingSystem {
 
             } else {
                 waitingQueue.enqueue(newTicket);
-                outputWriter.println("No seats for " + bookingPassenger.toString() + ", added to waiting list.");
+                outputWriter.println("No seats for " + bookingPassenger + ", added to waiting list.");
 
             }
         } else {
@@ -80,17 +79,50 @@ public class TrainTicketBookingSystem {
                     }
                 }
             } else
-                outputWriter.println("No booking found for " + cancellingPassenger.toString() + ".");
+                outputWriter.println("No booking found for " + cancellingPassenger + ".");
         } else
             outputWriter.println("Passenger with ID: " + passengerID + " not found.");
     }
 
     public void showConfirmedTickets() {
+        outputWriter.printf("%-17s%-17s%-17s%n", "------------------CONFIRMED PASSENGER------------------", "", "");
+        outputWriter.printf("| %-15s | %-15s | %-15s |%n", "Passenger ID", "Name", "Train ID");
+        outputWriter.printf("| %-15s | %-15s | %-15s |%n", "---------------", "---------------", "---------------");
 
+        Stack<Ticket> tempStack = new Stack<>();
+        while (!confirmStack.isEmpty()) {
+            Ticket currentTicket = confirmStack.pop();
+            outputWriter.printf("| %-15s | %-15s | %-15s |%n",
+                    currentTicket.getPassenger().getPassengerID(),
+                    currentTicket.getPassenger().getName(),
+                    currentTicket.getTrain().getTrainID());
+            tempStack.push(currentTicket);
+        }
+
+        while (!tempStack.isEmpty()) {
+            confirmStack.push(tempStack.pop());
+        }
     }
 
-    public void showWaitingTickets() {
 
+    public void showWaitingTickets() {
+        outputWriter.printf("%-17s%-17s%-17s%n", "------------------WAITING PASSENGER--------------------", "", "");
+        outputWriter.printf("| %-15s | %-15s | %-15s |%n", "Passenger ID", "Name", "Train ID");
+        outputWriter.printf("| %-15s | %-15s | %-15s |%n", "---------------", "---------------", "---------------");
+
+        Queue<Ticket> tempQueue = new Queue<>();
+        while (!waitingQueue.isEmpty()) {
+            Ticket currentTicket = waitingQueue.dequeue();
+            outputWriter.printf("| %-15s | %-15s | %-15s |%n",
+                    currentTicket.getPassenger().getPassengerID(),
+                    currentTicket.getPassenger().getName(),
+                    currentTicket.getTrain().getTrainID());
+            tempQueue.enqueue(currentTicket);
+        }
+
+        while (!tempQueue.isEmpty()) {
+            waitingQueue.enqueue(tempQueue.dequeue());
+        }
     }
 
     public Passenger findPassengerByID(String passengerID) {
@@ -123,5 +155,11 @@ public class TrainTicketBookingSystem {
         }
 
         return removedTicket;
+    }
+
+    public void closeOutputWriter() {
+        if (outputWriter != null) {
+            outputWriter.close();
+        }
     }
 }

@@ -28,7 +28,7 @@ public class Train {
     public String bookSeats(Passenger passenger) {
         if (availableSeats > 0) {
             availableSeats--;
-            return "Booking confirmed for Passenger " + passenger.toString() + ".";
+            return "Booking confirmed for Passenger " + passenger + ".";
         } else {
             return null; // meaning no seat is available
         }
@@ -37,7 +37,7 @@ public class Train {
     public String cancelSeat(Passenger passenger) {
         if (availableSeats < capacity) {
             availableSeats++;
-            return "Booking cancelled for " + passenger.toString() + ".";
+            return "Booking cancelled for Passenger " + passenger + ".";
         } else {
             return null; // as the train has no booked seats
         }

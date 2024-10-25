@@ -20,7 +20,7 @@ public class Stack<T> {
     }
 
     public T pop() {
-        if(isEmpty())
+        if (isEmpty())
             return null;
 
         T poppedData = top.data;
