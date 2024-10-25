@@ -25,7 +25,9 @@ public class Train {
         return capacity;
     }
 
+    // ------------------------------------------------------------------------------
     public String bookSeats(Passenger passenger) {
+        // if there is seats, book a seat and decrease the available seats
         if (availableSeats > 0) {
             availableSeats--;
             return "Booking confirmed for Passenger " + passenger + ".";
@@ -34,7 +36,9 @@ public class Train {
         }
     }
 
+    // ------------------------------------------------------------------------------
     public String cancelSeat(Passenger passenger) {
+        // if there are reserved seats cancel and open a seat
         if (availableSeats < capacity) {
             availableSeats++;
             return "Booking cancelled for Passenger " + passenger + ".";
@@ -42,4 +46,5 @@ public class Train {
             return null; // as the train has no booked seats
         }
     }
+    // ------------------------------------------------------------------------------
 }
