@@ -22,9 +22,9 @@ public class ArrayExercises {
             int count = 0;
             ArrayList<Integer> indices = new ArrayList<>();
 
-            if (element > sumOfArr) {
+            //if (element > sumOfArr) {
 
-            }
+           // }
         }
 
         // get # elements below average
