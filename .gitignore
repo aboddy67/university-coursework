@@ -1,0 +1,11 @@
+# Build output
+out/
+bin/
+*.class
+
+# IDE and OS files
+.idea/
+*.iml
+.vscode/
+nbproject/
+.DS_Store
